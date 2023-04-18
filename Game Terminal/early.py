@@ -123,17 +123,24 @@ class Earley:
 # PP: Prepositional Phrase
 def test():
     grammar = {
+        'S': [['Function-Def']],
         'Function-Def': [['def', 'NAME', 'LPAREN', 'RPAREN', 'COLON']],
         'def': ['def'],
-        'NAME': []
+        'NAME': ['move_character'],
+        'LPAREN': ['('],
+        'RPAREN': [')'],
+        'COLON': [':'],
     }
-    terminals = ['Det', 'Noun', 'Verb', 'Aux', 'Prep', 'Proper-Noun']
+    terminals = ['def', 'NAME', 'LPAREN', 'RPAREN', 'COLON']
 
     # Prompt user for input
     user_input = input("Enter a sentence to check: ")
 
     # Add a space before every semicolon
     user_input = user_input.replace(';', ' ;')
+    user_input = user_input.replace(':', ' :')
+    user_input = user_input.replace('(', ' (')
+    user_input = user_input.replace(')', ' )')
 
     # Split input into words
     words = user_input.split()
@@ -183,111 +190,3 @@ test()
 # the cat sat on the book
 
 # book that flight to Texas
-
-
-
-import tkinter as tk
-import time
-import keyboard
-import tkinter.messagebox as messagebox
-
-def create_window2():
-    def submit_code():
-        code = text_area.get('1.0', 'end-1c')
-        try:
-            exec(code)  # Execute the code entered by the user
-        except Exception as e:
-            # Display a pop-up window with the error message
-            error_window = tk.Toplevel(window)
-            error_window.title("Syntax Error")
-            error_window.geometry("300x100")
-            error_label = tk.Label(error_window, text=str(e))
-            error_label.pack()
-
-    # Create the window
-    window = tk.Tk()
-    window.title("Code Input")
-    window.geometry("500x500")
-
-    # Create the text area for code input
-    text_area = tk.Text(window)
-    text_area.pack(expand=True, fill="both")
-
-    # Create the button to submit the code
-    submit_button = tk.Button(window, text="Submit", command=submit_code)
-    submit_button.pack()
-
-    # Run the window
-    window.mainloop()
-
-create_window2()
-
-
-# FUNCTION
-
-def move_character():
-    time.sleep(1)
-    keyboard.press('s')
-    keyboard.release('s')
-    time.sleep(1)
-    keyboard.press('w')
-    keyboard.release('w')
-    time.sleep(1)
-    keyboard.press('s')
-    keyboard.release('s')
-    time.sleep(1)
-    keyboard.press('w')
-    keyboard.release('w')
-    time.sleep(1)
-
-move_character()
-
-
-# IF ELSE
-
-def move_character(direction):
-    if direction == 'w':
-        time.sleep(1)
-        keyboard.press('w')
-        keyboard.release('w')
-    elif direction == 'a':
-        time.sleep(1)
-        keyboard.press('a')
-        keyboard.release('a')
-    elif direction == 's':
-        time.sleep(1)
-        keyboard.press('s')
-        keyboard.release('s')
-    elif direction == 'd':
-        time.sleep(1)
-        keyboard.press('d')
-        keyboard.release('d')
-    else:
-        print("Invalid direction input")
-
-move_character('w')
-
-# FOR LOOP
-
-def move_character(directions):
-    for direction in directions:
-        time.sleep(1)
-        keyboard.press(direction)
-        keyboard.release(direction)
-
-# Example usage
-directions = ['w', 's', 'a', 'd']
-
-move_character(directions)
-
-# WHILE LOOP
-
-def move_character():
-    x = 1
-    while x <= 2:
-        time.sleep(1)
-        keyboard.press('a')
-        keyboard.release('a')
-        x += 1
-
-move_character()
